@@ -1,0 +1,186 @@
+02598096  200   <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns6:enrollmentResponse xmlns:ns6="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" xmlns:ns5="http://www.healthedge.com/connector/schema/basetypes" xmlns:ns8="http://www.healthedge.com/connector/schema/medicarehicn" xmlns:ns7="http://www.healthedge.com/connector/schema/claimtypes" xmlns:ns9="http://www.healthedge.com/connector/schema/enrollmenttypes" xmlns:ns11="http://www.healthedge.com/connector/schema/memberfactors" xmlns:ns10="http://www.healthedge.com/connector/schema/matchinput" xmlns:ns2="http://www.healthedge.com/connector/schema/cobpolicy" xmlns:ns4="http://www.healthedge.com/connector/schema/payeebankaccounts" xmlns:ns3="http://www.healthedge.com/connector/schema/subsidy">
+      <transactionId>b7ef53ce-3874-4a60-9132-71ff96d74193</transactionId>
+      <subscriptionId>02598096</subscriptionId>
+      <subscriberId>02598096</subscriberId>
+      <status>SUCCESS</status>
+      <enrollmentType>ADD</enrollmentType>
+      <accountChangeStatus>Not Processed</accountChangeStatus>
+      <transactionInformation>
+        <alreadyInWorkbasket>false</alreadyInWorkbasket>
+        <blockedByLock>false</blockedByLock>
+        <cvcId>342531</cvcId>
+        <needsRepair>false</needsRepair>
+        <needsReview>false</needsReview>
+        <rejected>false</rejected>
+        <transactionSubmitted>true</transactionSubmitted>
+        <versionEffectiveDate>1800-01-01-06:00</versionEffectiveDate>
+      </transactionInformation>
+      <member>
+        <memberId>02598096</memberId>
+        <maintenanceOverride>false</maintenanceOverride>
+        <maintenanceOverrideResult>ADD</maintenanceOverrideResult>
+        <lastName>MORI</lastName>
+        <firstName>JULIO</firstName>
+        <dob>01-07-2021</dob>
+        <endorsementDate>01-10-2023</endorsementDate>
+        <status>SUCCESS</status>
+        <planSelection>
+          <enrolledPlan>EMaaS Test AK</enrolledPlan>
+          <startDate>06-01-2022</startDate>
+          <endDate>06-30-2022</endDate>
+          <waiveBenefitWaitingPeriod>false</waiveBenefitWaitingPeriod>
+        </planSelection>
+        <providerSelection>
+          <startDate>09-30-2022</startDate>
+          <endDate>01-01-3000</endDate>
+        </providerSelection>
+        <transactionInformation>
+          <alreadyInWorkbasket>false</alreadyInWorkbasket>
+          <blockedByLock>false</blockedByLock>
+          <cvcId>342531</cvcId>
+          <needsRepair>false</needsRepair>
+          <needsReview>false</needsReview>
+          <rejected>false</rejected>
+          <transactionSubmitted>true</transactionSubmitted>
+          <versionEffectiveDate>1800-01-01-06:00</versionEffectiveDate>
+        </transactionInformation>
+      </member>
+      <subsidyResponse>
+        <subscriptionHccId>02598096</subscriptionHccId>
+        <status>Not Processed</status>
+      </subsidyResponse>
+      <cobPolicyResponse>
+        <memberHccID>02598096</memberHccID>
+        <status>Not Processed</status>
+      </cobPolicyResponse>
+      <medicareHICNResponse>
+        <memberHccID>02598096</memberHccID>
+        <status>Not Processed</status>
+      </medicareHICNResponse>
+      <memberFactorsResponse>
+        <originalMemberFactorsInput>
+          <membershipIdentifier>60115</membershipIdentifier>
+          <memberFactorCore>
+            <updateMode>Create</updateMode>
+            <memberFactors>
+              <memberFactor>
+                <factorType>
+                  <codeSetName>MemberFactorType</codeSetName>
+                  <codeEntry>EMaaS02</codeEntry>
+                </factorType>
+                <factorDateRanges>
+                  <factorStartDate>2022-08-01</factorStartDate>
+                  <factorEndDate>2022-08-02</factorEndDate>
+                  <factorQualifier>
+                    <codeSetName>MemberFactorQualifier</codeSetName>
+                    <codeEntry>3</codeEntry>
+                  </factorQualifier>
+                  <factorValue>100</factorValue>
+                </factorDateRanges>
+              </memberFactor>
+            </memberFactors>
+          </memberFactorCore>
+        </originalMemberFactorsInput>
+        <status>SUCCESS</status>
+      </memberFactorsResponse>
+      <payeeBankAccountResponse>
+        <status>Not Processed</status>
+      </payeeBankAccountResponse>
+    </ns6:enrollmentResponse>
+  </soap:Body>
+</soap:Envelope>
+02590578  200   <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns6:enrollmentResponse xmlns:ns6="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" xmlns:ns5="http://www.healthedge.com/connector/schema/basetypes" xmlns:ns8="http://www.healthedge.com/connector/schema/medicarehicn" xmlns:ns7="http://www.healthedge.com/connector/schema/claimtypes" xmlns:ns9="http://www.healthedge.com/connector/schema/enrollmenttypes" xmlns:ns11="http://www.healthedge.com/connector/schema/memberfactors" xmlns:ns10="http://www.healthedge.com/connector/schema/matchinput" xmlns:ns2="http://www.healthedge.com/connector/schema/cobpolicy" xmlns:ns4="http://www.healthedge.com/connector/schema/payeebankaccounts" xmlns:ns3="http://www.healthedge.com/connector/schema/subsidy">
+      <transactionId>2b458876-bf89-4fc4-8fc2-e1664f481890</transactionId>
+      <subscriptionId>02590578</subscriptionId>
+      <subscriberId>02590578</subscriberId>
+      <status>SUCCESS</status>
+      <enrollmentType>ADD</enrollmentType>
+      <accountChangeStatus>Not Processed</accountChangeStatus>
+      <transactionInformation>
+        <alreadyInWorkbasket>false</alreadyInWorkbasket>
+        <blockedByLock>false</blockedByLock>
+        <cvcId>342542</cvcId>
+        <needsRepair>false</needsRepair>
+        <needsReview>false</needsReview>
+        <rejected>false</rejected>
+        <transactionSubmitted>true</transactionSubmitted>
+        <versionEffectiveDate>1800-01-01-06:00</versionEffectiveDate>
+      </transactionInformation>
+      <member>
+        <memberId>02590578</memberId>
+        <maintenanceOverride>false</maintenanceOverride>
+        <maintenanceOverrideResult>ADD</maintenanceOverrideResult>
+        <lastName>WAYNE</lastName>
+        <firstName>PATRICIA</firstName>
+        <dob>07-08-2022</dob>
+        <endorsementDate>01-10-2023</endorsementDate>
+        <status>SUCCESS</status>
+        <planSelection>
+          <enrolledPlan>EMaaS Test AK</enrolledPlan>
+          <startDate>07-08-2022</startDate>
+          <endDate>01-01-3000</endDate>
+          <waiveBenefitWaitingPeriod>false</waiveBenefitWaitingPeriod>
+        </planSelection>
+        <providerSelection>
+          <startDate>09-30-2022</startDate>
+          <endDate>01-01-3000</endDate>
+        </providerSelection>
+        <transactionInformation>
+          <alreadyInWorkbasket>false</alreadyInWorkbasket>
+          <blockedByLock>false</blockedByLock>
+          <cvcId>342542</cvcId>
+          <needsRepair>false</needsRepair>
+          <needsReview>false</needsReview>
+          <rejected>false</rejected>
+          <transactionSubmitted>true</transactionSubmitted>
+          <versionEffectiveDate>1800-01-01-06:00</versionEffectiveDate>
+        </transactionInformation>
+      </member>
+      <subsidyResponse>
+        <subscriptionHccId>02590578</subscriptionHccId>
+        <status>Not Processed</status>
+      </subsidyResponse>
+      <cobPolicyResponse>
+        <memberHccID>02590578</memberHccID>
+        <status>Not Processed</status>
+      </cobPolicyResponse>
+      <medicareHICNResponse>
+        <memberHccID>02590578</memberHccID>
+        <status>Not Processed</status>
+      </medicareHICNResponse>
+      <memberFactorsResponse>
+        <originalMemberFactorsInput>
+          <membershipIdentifier>60116</membershipIdentifier>
+          <memberFactorCore>
+            <updateMode>Create</updateMode>
+            <memberFactors>
+              <memberFactor>
+                <factorType>
+                  <codeSetName>MemberFactorType</codeSetName>
+                  <codeEntry>EMaaS02</codeEntry>
+                </factorType>
+                <factorDateRanges>
+                  <factorStartDate>2022-08-01</factorStartDate>
+                  <factorEndDate>2022-08-02</factorEndDate>
+                  <factorQualifier>
+                    <codeSetName>MemberFactorQualifier</codeSetName>
+                    <codeEntry>3</codeEntry>
+                  </factorQualifier>
+                  <factorValue>100</factorValue>
+                </factorDateRanges>
+              </memberFactor>
+            </memberFactors>
+          </memberFactorCore>
+        </originalMemberFactorsInput>
+        <status>SUCCESS</status>
+      </memberFactorsResponse>
+      <payeeBankAccountResponse>
+        <status>Not Processed</status>
+      </payeeBankAccountResponse>
+    </ns6:enrollmentResponse>
+  </soap:Body>
+</soap:Envelope>
