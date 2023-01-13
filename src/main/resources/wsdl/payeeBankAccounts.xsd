@@ -1,0 +1,101 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.healthedge.com/connector/schema/payeebankaccounts" xmlns:minput="http://www.healthedge.com/connector/schema/matchinput" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns="http://www.healthedge.com/connector/schema/payeebankaccounts" elementFormDefault="unqualified" targetNamespace="http://www.healthedge.com/connector/schema/payeebankaccounts" version="5.0">
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=match-input.xsd"/>
+    <xs:element name="payeeBankAccounts" type="PayeeBankAccountsType"/>
+    <xs:element name="payeeBankAccountsResponse" type="PayeeBankAccountsResponseType"/>
+    <xs:element name="payeeBankAccountsLookupCriteria" type="PayeeBankAccountsLookupCriteriaType"/>
+    <xs:element name="payeeBankAccountsLookupResponse" type="PayeeBankAccountsLookupResponseType"/>
+    <xs:complexType name="PayeeBankAccountsResponseType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="payeeBankAccount" type="PayeeBankAccountsType"/>
+            <xs:element minOccurs="0" name="status" type="base:ServiceStatusType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="transactionInformation" type="base:TransactionInformationType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="errors" type="base:ErrorsType">
+                <xs:annotation>
+                    <xs:documentation>Exception string in case of system error.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PayeeBankAccountsType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:group ref="PayeeBankAccountsGroup"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="maintenanceComment" type="base:String900Type"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="maintenanceReasonCode" type="base:CodeEntryInputType">
+                        <xs:annotation>
+                            <xs:documentation> Reference to PayeeBankAccountsAmendReason, PayeeBankAccountsCreateReason Code Set. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PayeeBankAccountsLookupCriteriaType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="bankAccountId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="endorsementEffectiveDate" type="xs:dateTime"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PayeeBankAccountsLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="payeeBankAccount" type="PayeeBankAccountsType"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="status" type="base:ServiceStatusType"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="errors" type="base:ErrorsType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="PayeeBankAccountsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="instanceActiveCode" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="bankAccountId" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="oldBankAccountId" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endorsementEffectiveDate" type="xs:dateTime"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endorsementExpirationDate" type="xs:dateTime"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="payee" type="PayeeType"/>
+            <xs:choice>
+                <xs:element maxOccurs="1" minOccurs="1" name="payeeBankAccountDateRange" type="PayeeBankAccountDateRangeType"/>
+                <xs:element maxOccurs="1" minOccurs="0" name="payeeBankAccountDateRanges">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1" name="payeeBankAccountDateRange" type="PayeeBankAccountDateRangeType"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="PayeeType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="payeeSupplierHccId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="payeeSupplierLocationHccId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="payeeBrokerHccId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="payeeSubscriptionHccId" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="PayeeBankAccountDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="endDate" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="routingNumber" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="accountNumber" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="bankName" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="countryCode" type="base:CountryCodeDomainType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="accountOwner" type="base:String150Type"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="bankAccountType" type="base:CodeEntryInputType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="externalUsageType" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

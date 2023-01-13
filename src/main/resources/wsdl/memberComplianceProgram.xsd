@@ -1,0 +1,124 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.healthedge.com/connector/schema/membercomplianceprogram" xmlns:minput="http://www.healthedge.com/connector/schema/matchinput" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns="http://www.healthedge.com/connector/schema/membercomplianceprogram" elementFormDefault="unqualified" targetNamespace="http://www.healthedge.com/connector/schema/membercomplianceprogram" version="4.0">
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=match-input.xsd"/>
+    <xs:element name="memberComplianceProgram" type="MemberComplianceProgramType"/>
+    <!--  OUTPUT BEGIN  -->
+    <xs:element name="memberComplianceProgramResponse" type="MemberComplianceProgramResponseType"/>
+    <xs:complexType name="MemberComplianceProgramResponseType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="memberComplianceProgramInput" type="MembershipComplianceProgramSelectionListType"/>
+            <xs:element minOccurs="0" name="status" type="base:ServiceStatusType"/>
+            <xs:element minOccurs="0" name="transactionInformation" type="base:TransactionInformationType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="errors" type="base:ErrorsType">
+                <xs:annotation>
+                    <xs:documentation>Exception string in case of system error.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <!--  OUTPUT END  -->
+    <!--  MemberComplianceProgram Service INPUT BEGIN  -->
+    <xs:complexType name="MemberComplianceProgramType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="MembershipComplianceProgramSelectionListGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="MembershipComplianceProgramSelectionListGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="membershipIdentifier" type="xs:long"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="memberHccID" type="base:String50Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="memberMatchData" type="minput:MemberMatchInputType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="membershipComplianceProgSelectionsType" type="MembershipComplianceProgSelectionsType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipComplianceProgramSelectionListType">
+        <xs:group ref="MembershipComplianceProgramSelectionListGroup"/>
+    </xs:complexType>
+    <xs:complexType name="MembershipComplianceProgSelectionsType">
+        <xs:group ref="MembershipComplianceProgramSelectionsGroup"/>
+    </xs:complexType>
+    <!--  MemberComplianceProgram Service INPUT END  -->
+    <!--  Used by Enrollment Sparse BEGIN  -->
+    <xs:complexType name="MemberComplianceProgType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="MembershipComplianceProgramSelectionsGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <!--  The following blocks are used by the enrollment sparse service and the member compliance program service  -->
+    <xs:group name="MembershipComplianceProgramSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="complianceProgramSelections">
+                <xs:annotation>
+                    <xs:documentation> From MemberSelections; a list of compliance programs the member has selected. </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="UpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="complianceProgramSelection" type="ComplianceProgramSelectionType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="ComplianceProgramSelectionType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="complianceProgramDateRanges" type="ComplianceProgramDateRangeType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="complianceProgramReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ComplianceProgramDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="complianceCode" type="ComplianceCode"/>
+        </xs:sequence>
+    </xs:complexType>
+    <!--  Used by Enrollment Sparse END  -->
+    <xs:simpleType name="ComplianceCode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="U"/>
+            <xs:enumeration value="C"/>
+            <xs:enumeration value="N"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="UpdateModeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MERGE"/>
+            <xs:enumeration value="REPLACE"/>
+            <xs:enumeration value="DELETE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <!--  ComplianceProgram Lookup Types START  -->
+    <xs:element name="complianceProgramLookupCriteria" type="ComplianceProgramLookupInputType"/>
+    <xs:complexType name="ComplianceProgramLookupInputType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType"> </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="complianceProgramLookupListResponse" type="ComplianceProgramReferenceResponseType"> </xs:element>
+    <xs:complexType name="ComplianceProgramReferenceResponseType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="complianceProgramReference" type="ComplianceProgramReferenceType"/>
+                    <xs:group ref="base:ErrorStatusGroup"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="ComplianceProgramReferenceGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="programName" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="account" type="base:AccountsReferenceType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="product" type="base:ProductReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="ComplianceProgramReferenceType">
+        <xs:group ref="ComplianceProgramReferenceGroup"/>
+    </xs:complexType>
+    <!--  ComplianceProgram Lookup Types END  -->
+</xs:schema>

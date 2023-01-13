@@ -1,0 +1,349 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.healthedge.com/connector/schema/medicarehicn" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns="http://www.healthedge.com/connector/schema/medicarehicn" elementFormDefault="unqualified" targetNamespace="http://www.healthedge.com/connector/schema/medicarehicn" version="5.0">
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=base-types.xsd"/>
+    <xs:element name="medicareHICNList" type="MedicareHICNInfoListType"/>
+    <xs:element name="medicareHICNInfo" type="MedicareHICNInfoType"/>
+    <xs:element name="medicareHICNResponse" type="MedicareHICNInfoResponseType"/>
+    <xs:complexType name="MedicareHICNInfoResponseType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="memberHccID" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="status" type="base:ServiceStatusType"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="medicareHICNInfo">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="1" minOccurs="0" name="hicn" type="base:String50Type"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="mbi" type="base:String50Type"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="transactionType" type="base:TransactionType"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="effectiveDate" type="xs:date"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="expirationDate" type="xs:date"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="entryDate" type="xs:date"/>
+                                <xs:element maxOccurs="1" minOccurs="0" name="medicareEligibilityReasonCode" type="base:CodeEntryInputType"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="errors" type="base:ErrorsType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="MedicareHICNInfoListType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="memberHccID" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="medicareHICNInfo" type="MedicareHICNInfoType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicareHICNInfoType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="MedicareHICNInfoGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="MedicareHICNInfoGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="hicn" type="base:String50Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="mbi" type="base:String50Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="effectiveDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="expirationDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="entryDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="waitingPeriodStartDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="waitingPeriodEndDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="nursingHomeCompareIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="stateMedicaidEnrollment" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="stateMedicaidEnrollments">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="stateMedicaidEnrollment" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="workingSpouse" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="workingSpouses">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="workingSpouse" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="longTermCareResident" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="dialysisDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="dialysisDateRange" type="OptionalDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="transplantDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="transplantDateRange" type="OptionalDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="esrdIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="esrdDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="esrdDateRange" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="hospiceIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="hospiceDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="hospiceDateRange" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="institutionalIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="institutionalDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="institutionalDateRange" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="medicaidDateRange" type="MedicareMedicaidDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="nhcDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="nhcDateRange" type="MedicareDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="partADates">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="partADate" type="MedicarePartDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="partBDates">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="partBDate" type="MedicarePartDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="premiumWithholdDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="premiumWithholdDateRange" type="MedicarePremiumWithholdDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="supplementalDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="supplementalDateRange" type="MedicareSupplementalDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDDateRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="partDDateRanges" type="MedicarePartDDateRangeType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicareEligibilityReasonCode" type="base:CodeEntryInputType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicareHICNFields">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="medicareHICNField" type="MedicareHICNFieldType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidDualStatusRanges">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="updateMode" type="base:ListUpdateModeType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="medicaidDualStatus" type="MedicaidDualStatusType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="OptionalDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicareDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicareMedicaidDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidRecertificationDate" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="effectiveDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="terminationDate" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePremiumWithholdDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="premiumWithholdFlag" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="premiumWithholdPaymentMethodType" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="premiumWithholdOption" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicareSupplementalDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="personCode" type="base:String300Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="supplementalTypeCode" type="base:String300Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="supplementalRxCoverage" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDBestAvailableEvidenceIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDCreditableCoverageIndicator" type="xs:boolean"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="partDLEPDateRanges" type="MedicarePartDLEPDateRangeType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="partDLISCopayCategoryDates" type="MedicarePartDLISCopayCategoryDateRangeType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="partDLISSubsidyLevelDates" type="MedicarePartDLISSubsidyLevelDateRangeType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="partDCurrLISPremSubsidyDates" type="MedicarePartDCurrentLISPremiumSubsidyDateRangeType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDCurrentLISPremiumSubsidyDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDCurrentLISPremiumSubsidyAmount" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDLEPDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLEPAmount" type="xs:decimal"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLEPWaivedAmount" type="xs:decimal"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLEPSubsidyAmount" type="xs:decimal"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLEPCurrentNumberofUncoveredMonths" type="xs:int"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLEPTotalNumberofUncoveredMonths" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDLISCopayCategoryDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLISCopayCategoryCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicarePartDLISSubsidyLevelDateRangeType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="startDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="endDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partDLISSubsidyLevel" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicareHICNFieldType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="fieldName" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="fieldValue" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MedicaidDualStatusType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="effectiveDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="terminationDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="gracePeriodStartDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidDual" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidDualStatusSourceCode" type="base:CodeEntryInputType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicaidDualStatusCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <!--  lookup start -->
+    <xs:element name="medicareHICNReferenceLookupCriteria" type="MedicareHICNLookupInputType"/>
+    <xs:element name="medicareHICNLookupCriteria" type="MedicareHICNLookupInputType"/>
+    <xs:complexType name="MedicareHICNLookupInputType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="memberHccId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="asOfDate" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="medicareHICNReferenceLookupListResponse" type="MedicareHICNReferenceType">
+        <xs:annotation>
+            <xs:documentation>Member ID is used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="MedicareHICNReferenceType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="memberHccId" type="xs:string"/>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="hicn" type="xs:string"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="mbi" type="xs:string"/>
+                    </xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="asOfDate" type="xs:string"/>
+                    <xs:group ref="base:ErrorStatusGroup"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="medicareHICNLookupListResponse" type="MedicareHICNLookupResponseType">
+        <xs:annotation>
+            <xs:documentation>Member ID is used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="MedicareHICNLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="memberHccID" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="asOfDate" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="medicareHICNs" type="MedicareHICNsType"/>
+                    <xs:group ref="base:ErrorStatusGroup"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="MedicareHICNsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="medicareHICN" type="MedicareHICNInfoType"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

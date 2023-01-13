@@ -1,0 +1,401 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.healthedge.com/connector/schema/enrollmenttypes" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns="http://www.healthedge.com/connector/schema/enrollmenttypes" elementFormDefault="unqualified" targetNamespace="http://www.healthedge.com/connector/schema/enrollmenttypes" version="4.1">
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=base-types.xsd"/>
+    <xs:annotation>
+        <xs:documentation> DISCLAIMER This pre-release software provided by HealthEdge Inc. is a work-in-progress. HealthEdge provides pre-release information to early adopters for the purpose of design and planning. It has no warranty either explicit or implied and is subject to change. </xs:documentation>
+    </xs:annotation>
+    <xs:group name="PaymentHoldGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="enablePaymentHold" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>If true, claims are held and no payments are sent. Note that these claims are not in a workbasket.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="requestingUser" type="base:String50Type">
+                <xs:annotation>
+                    <xs:documentation>Name of the person who requested the hold. This person is not necessarily a user in the system.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="paymentHoldReasonDescription" type="base:String50Type">
+                <xs:annotation>
+                    <xs:documentation>Text describing the reason for the hold.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="paymentHoldReasonCode" type="base:CodeEntryInputType">
+                <xs:annotation>
+                    <xs:documentation>Reference to a PayHoldReason codeset entry.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="QualityControlReviewConclusionGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="transactionId" type="xs:long"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="sendToReview" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="userName" type="base:StringIdentifierType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="QualityControlReviewConclusionType">
+        <xs:group ref="QualityControlReviewConclusionGroup"/>
+    </xs:complexType>
+    <xs:complexType name="ClaimReviewType">
+        <xs:group ref="ClaimReviewGroup"/>
+    </xs:complexType>
+    <xs:group name="ClaimReviewGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="enableClaimReview" type="xs:boolean"/>
+            <xs:element default="Review All Claims" maxOccurs="1" minOccurs="0" name="claimType" type="ClaimReviewClaimType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="claimReviewReasonCode" type="base:CodeEntryInputType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewReasonDescription" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="requestingUser" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewServiceStartDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewServiceEndDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewReceiptStartDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewReceiptEndDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewPractitionerList" type="ReviewPactitionerType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="reviewSupplierList" type="ReviewSupplierType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="ReviewPactitionerType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="otherThan" type="xs:boolean"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="practitionerReference">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="practitionerID" type="xs:string"/>
+                        <xs:element maxOccurs="1" minOccurs="1" name="practitionerMatch" type="base:PractitionerReferenceType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ReviewSupplierType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="otherThan" type="xs:boolean"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="supplierReference">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="supplierID" type="xs:string"/>
+                        <xs:element maxOccurs="1" minOccurs="1" name="supplierMatch" type="base:SupplierReferenceType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IndividualType">
+        <xs:group ref="IndividualGroup"/>
+    </xs:complexType>
+    <xs:group name="IndividualGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="members">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="member" type="RelatedMemberType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="externalMemberInfo" type="ExternalMemberInformationType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="RelatedMemberType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="applyClaimHistoryFromOtherMembers" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="membershipReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ExternalMemberInformationType">
+        <xs:group ref="ExternalMemberInformationGroup"/>
+    </xs:complexType>
+    <xs:group name="ExternalMemberInformationGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="taxIdentificationNumber" type="base:SSNType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="primaryName" type="base:PersonNameType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="addressInfo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="postalAddress" type="base:PostalAddressType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="addressPhoneList" type="base:TelephoneNumberType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="PlanSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="DateRangesGroup" type="DateRangesType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="InactiveDataRangesGroup" type="InactiveDateRangesType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="benefitPlanReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="PlanSelectionsType">
+        <xs:group ref="PlanSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipPlanSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="dateRanges" type="MemberPlanSeclectionDateRangeType"/>
+            <!-- xs:element name="inactiveDateRanges" type="MemberPlanSeclectionDateRangeType" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="benefitPlanReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1"/ -->
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipPlanSelectionsType">
+        <xs:group ref="MembershipPlanSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="ProviderSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="DateRangesGroup" type="DateRangesType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="InactiveDataRangesGroup" type="InactiveDateRangesType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="benefitPlanReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="ProviderSelectionsType">
+        <xs:group ref="ProviderSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipProviderSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="ProviderRoleName" type="ProviderRoleDomainType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="dataRanges" type="MembershipInactiveDateRangesType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipProviderSelectionsType">
+        <xs:group ref="MembershipProviderSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="ComplianceProgramSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="MembershipDateRangesGroup" type="DateRangesType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="MembershipInactiveDataRangesGroup" type="InactiveDateRangesType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="benefitPlanReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="ComplianceProgramSelectionsType">
+        <xs:group ref="ComplianceProgramSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipComplianceProgramSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="MembershipDateRangesGroup" type="DateRangesType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="MembershipInactiveDataRangesGroup" type="InactiveDateRangesType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="complianceProgramReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipComplianceProgramSelectionsType">
+        <xs:group ref="MembershipComplianceProgramSelectionsGroup"/>
+    </xs:complexType>
+    <xs:group name="DateRangesGroup">
+        <xs:sequence>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="status" type="PlanSelectionStatus"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="MemeberGroup" type="MemberType"/>
+            <!--  SubscriptionSelections.planSelections  -->
+            <xs:element maxOccurs="1" minOccurs="0" name="coverageTier" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="DateRangesType">
+        <xs:group ref="DateRangesGroup"/>
+    </xs:complexType>
+    <xs:group name="MemberPlanSeclectionDateRangeGroup">
+        <xs:sequence>
+            <!-- xs:element name="startDate" type="xs:date"/>
+                        <xs:element name="endDate" type="xs:date"/ -->
+            <xs:element name="status" type="PlanSelectionStatus"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="enrollmentInfo" type="EnrollmentInformationType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="memberTerminateReasonCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MemberPlanSeclectionDateRangeType">
+        <xs:group ref="MemberPlanSeclectionDateRangeGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipDateRangesGroup">
+        <xs:sequence>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="coverage" type="CurrencyType"/>
+            <xs:element name="claimHistoryFromOtherPlans" type="ClaimHistoryFromOtherPlansType"/>
+            <xs:element name="status" type="PlanSelectionStatus"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="EnrollmentInfoGroup" type="EnrollmentInformationType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="benefitNetworkReference" type="base:ReferenceType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="memberTerminateReasonCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipDateRangesType">
+        <xs:group ref="MembershipDateRangesGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipComplianceDateRangesGroup">
+        <xs:sequence>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="complianceCode" type="ComplianceCode"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipComplianceDateRangesType">
+        <xs:group ref="MembershipComplianceDateRangesGroup"/>
+    </xs:complexType>
+    <xs:group name="MemberGroup">
+        <xs:sequence>
+            <xs:element name="memberHccId" type="xs:long"/>
+            <xs:element name="memberType" type="xs:long"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="membershipReference" type="base:ReferenceType"/>
+            <!--  SubscriptionSelections.planSelections  -->
+            <xs:element maxOccurs="1" minOccurs="0" name="coverageTier" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MemberType">
+        <xs:group ref="MemberGroup"/>
+    </xs:complexType>
+    <xs:group name="EnrollmentInformationGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="applicationSignatureDomain" type="ApplicationSignatureDomainType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="applicationSignatureDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="applicationReceiptDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="completedDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="submitDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="disenrollDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="disenrollReason" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="medicareEnrollmentPeriodCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="EnrollmentInformationType">
+        <xs:group ref="EnrollmentInformationGroup"/>
+    </xs:complexType>
+    <xs:group name="InactiveDateRangesGroup">
+        <xs:sequence>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="status" type="PlanSelectionStatus"/>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="MemberGroup"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="InactiveDateRangesType">
+        <xs:group ref="InactiveDateRangesGroup"/>
+    </xs:complexType>
+    <xs:group name="MembershipInactiveDateRangesGroup">
+        <xs:sequence>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="endDate" type="xs:date"/>
+            <xs:element name="isAutoAssigned" type="xs:boolean"/>
+            <xs:element name="claimHistoryFromOtherPlans" type="ClaimHistoryFromOtherPlansType"/>
+            <xs:element name="selectedProvider" type="SelectedProviderType"/>
+            <xs:group maxOccurs="unbounded" minOccurs="0" ref="EnrollmentInformationGroup"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MembershipInactiveDateRangesType">
+        <xs:group ref="MembershipInactiveDateRangesGroup"/>
+    </xs:complexType>
+    <xs:group name="SelectedProviderGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="practitionerReference" type="base:ReferenceType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="practitionerRoleReference" type="base:ReferenceType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="supplierReference" type="base:ReferenceType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="supplierNetworkReference" type="base:ReferenceType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="SelectedProviderType">
+        <xs:group ref="SelectedProviderGroup"/>
+    </xs:complexType>
+    <xs:group name="ApplicationInfoGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="applicationId" type="base:String50Type"> </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="ratingArea" type="base:String50Type"> </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="paymentTransactionId" type="base:String50Type"> </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="paymentDate" type="xs:date"> </xs:element>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="CobraSelectionsGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="cobraStart" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="cobraEnd" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="cobraReceiptDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="cobraPaidThroughDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="comment" type="base:String50Type"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="cobraQualifyingEventCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="CobraSelectionsType">
+        <xs:group ref="CobraSelectionsGroup"/>
+    </xs:complexType>
+    <xs:complexType name="RaceOrEthnicityListRawType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="listMode" type="base:ListActionType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="raceOrEthnicityCodes" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MemberClaimReviewType">
+        <xs:complexContent>
+            <xs:extension base="ClaimReviewType">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="serviceCategory" type="ServiceCategoryType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ServiceCategoryType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="serviceCategoryType" type="xs:string"/>
+            <xs:choice>
+                <xs:element maxOccurs="1" minOccurs="1" name="serviceCategoryIdentifier" type="xs:string"/>
+                <xs:element maxOccurs="1" minOccurs="1" name="serviceCategoryName" type="xs:string"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MemberManualReviewType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="manualReviewFlag" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="manualReviewReasonCode" type="base:CodeEntryInputType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="PlanSelectionStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="P"/>
+            <xs:enumeration value="I"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MemberTypeCode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ClaimReviewClaimType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Review All Claims"/>
+            <xs:enumeration value="Review Denied Claims"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ClaimHistoryFromOtherPlansType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CurrencyType">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="ApplicationSignatureDomainType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ProviderRoleDomainType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="7"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ComplianceCode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="U"/>
+            <xs:enumeration value="C"/>
+            <xs:enumeration value="N"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

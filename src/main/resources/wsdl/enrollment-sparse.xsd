@@ -1,0 +1,53 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.healthedge.com/connector/schema/enrollmentsparse" xmlns:subscription="http://www.healthedge.com/connector/schema/subscriptionsparse" xmlns:sparseResp="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" xmlns:membership="http://www.healthedge.com/connector/schema/membershipsparse" xmlns:enrollmenttypes="http://www.healthedge.com/connector/schema/enrollmenttypes" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns="http://www.healthedge.com/connector/schema/enrollmentsparse" elementFormDefault="unqualified" targetNamespace="http://www.healthedge.com/connector/schema/enrollmentsparse" version="4.1">
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/subscriptionsparse" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=subscription-sparse.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/membershipsparse" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=membership-sparse.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/enrollmenttypes" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=enrollment-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" schemaLocation="http://100.111.30.153:9191/connector/services/v4/EnrollmentSparse?xsd=enrollment-sparse-response.xsd"/>
+    <xs:element name="enrollment" type="EnrollmentType"/>
+    <xs:complexType name="EnrollmentType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="EnrollmentGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="ActionModeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FULL"/>
+            <xs:enumeration value="SPARSE"/>
+            <xs:enumeration value="REPLACE"/>
+            <xs:enumeration value="AUDIT"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:group name="EnrollmentGroup">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="transactionId" type="base:String60Type"/>
+            <xs:element default="SPARSE" maxOccurs="1" minOccurs="0" name="actionMode" type="ActionModeType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="asOfDate" type="xs:date"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="activate" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="subscriberId" type="base:String50Type"/>
+            <xs:element default="true" maxOccurs="1" minOccurs="0" name="cascadeTerms" type="xs:boolean"/>
+            <xs:element default="true" maxOccurs="1" minOccurs="0" name="cascadeCancels" type="xs:boolean"/>
+            <xs:element default="false" maxOccurs="1" minOccurs="0" name="cascadeReinstate" type="xs:boolean"/>
+            <xs:element default="true" maxOccurs="1" minOccurs="0" name="sendToWorkBasketIfExceptionsPresent" type="xs:boolean"/>
+            <xs:element default="false" maxOccurs="1" minOccurs="0" name="requestFromHmem" type="xs:boolean"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="subscription" type="subscription:SubscriptionType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="member" type="membership:MembershipType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="udtResultQuery" type="udtAttributes"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="EnrollmentTransitBeanType">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="transaction" type="base:GenericTransactionType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="input" type="EnrollmentType"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="response" type="sparseResp:EnrollmentResponseType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="udtAttributes">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="0" name="udtName" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="attributes" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
