@@ -62,7 +62,7 @@
 		</dependency>
     </dependencies>
 
-	<profiles>
+	<!--<profiles>
 		<profile>
 			<id>java11</id>
 			<activation>
@@ -76,7 +76,7 @@
 				</dependency>
 			</dependencies>
 		</profile>
-	</profiles>
+	</profiles>-->
 
 	<build>
 		<plugins>
@@ -88,7 +88,14 @@
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.14.0</version>
+				<version>0.15.2</version>
+				<!--<dependencies>
+					<dependency>
+						<groupId>org.glassfish.jaxb</groupId>
+						<artifactId>jaxb-runtime</artifactId>
+						<version>4.0.1</version>
+					</dependency>
+				</dependencies>-->
 				<executions>
 					<execution>
 						<goals>
@@ -97,6 +104,9 @@
 					</execution>
 				</executions>
 				<configuration>
+					<args>
+						<arg>-XautoNameResolution</arg>
+					</args>
 					<strict>false</strict>
 					<catalog>src/main/resources/catalog.cat</catalog>
 					<schemaLanguage>WSDL</schemaLanguage>

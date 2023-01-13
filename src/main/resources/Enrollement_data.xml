@@ -1,4 +1,4 @@
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:enr="http://www.healthedge.com/connector/schema/enrollmentsparse">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:enr="http://www.healthedge.com/connector/schema/enrollmentsparse">
    <soapenv:Header/>
    <soapenv:Body>
       <enr:enrollment>

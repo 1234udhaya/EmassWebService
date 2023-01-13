@@ -36,16 +36,22 @@ public class EmassWebService implements CommandLineRunner {
         SpringApplication.run(EmassWebService.class, args);
     }
 
+    public void callback() {
+
+    }
+
     @Override
     public void run(String... args) throws Exception {
-        RecordPreparation recordPreparation = new RecordPreparation(personalDetails, readBaseDetails, readAuthrep, readELigDetails, readLockDetails);
+        new EmassWebServiceClient().callback();
+
+        /*RecordPreparation recordPreparation = new RecordPreparation(personalDetails, readBaseDetails, readAuthrep, readELigDetails, readLockDetails);
 
         recordPreparation.HashMapFromTextFile();
 
         RecordProcessing recordProcessing = new RecordProcessing(healthEdge);
         Map<String, Map<String, String>> processedRecords = recordProcessing.processEntrollment(RecordPreparation.records);
 
-       WriteResults.writeToTextFile(processedRecords);
+       WriteResults.writeToTextFile(processedRecords);*/
 
         System.exit(1);
     }
